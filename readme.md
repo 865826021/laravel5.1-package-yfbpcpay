@@ -33,12 +33,15 @@ use \Yuxiaoyang\YfbpcPay\YfbpcPay;
 class YfbpcPayController extends Controller
 {
     public $yfbpcpay;
+    
+    public function __construct()
+    {
+        $this->yfbpcpay = new yfbpcpay();
+    }
 
     //易付宝PC支付
     public function yfbpcpay()
     {
-        //创建示例对象
-        $this->yfbpcpay = new yfbpcpay();
         $params["out_trade_no"] = rand(1000000000,9999999999);
         $params["subject"] = "易付宝PC在线支付";
         $params["body"] = "订单详细";
@@ -51,8 +54,6 @@ class YfbpcPayController extends Controller
     //易付宝PC支付回调验签
     public function yfbpcpayReturn(Request $request)
     {
-        //创建示例对象
-        $this->yfbpcpay = new yfbpcpay();
         $params['responseCode'] = Input::get('responseCode');
         $params['signAlgorithm'] = Input::get('signAlgorithm');//签名方式
         $params['keyIndex'] = Input::get('keyIndex');
